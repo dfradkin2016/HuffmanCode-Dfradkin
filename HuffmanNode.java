@@ -75,4 +75,25 @@ public class HuffmanNode implements Comparable
 	{
 		return frequency - ((HuffmanNode)o).frequency();
 	}
+	
+	//left and right null together
+	public boolean isLeaf()
+	{
+		if (null == left)
+			return true;
+		return false;
+	}
+	
+	public String toString()
+	{
+		String output;
+		if (value == null)
+			output = "Null";
+		else
+			output = value.toString();
+		if (isLeaf())
+			return output;
+		else
+			return output + "(" + left.toString() + "," + right.toString() + ")";
+	}
 }
