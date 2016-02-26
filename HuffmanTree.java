@@ -28,6 +28,12 @@ public class HuffmanTree
 	private HashMap<Character, Integer> m;
 	private PriorityQueue<HuffmanNode>  q;
 	
+	/*
+	Constructor.
+	Takes in the sentence and then creates tree.
+	
+	@param	s	sentence
+	*/
 	public HuffmanTree(String s)
 	{
 		sentence = s;
@@ -36,6 +42,9 @@ public class HuffmanTree
 		init();
 	}
 	
+	/*
+	Organizes by calling other functions.
+	*/
 	private void init()
 	{
 		createMap();
@@ -43,10 +52,12 @@ public class HuffmanTree
 		makeTree();
 	}
 	
+	/*
+	method that initializes to a map
+	if chr exists in map, add 1 to frequency
+	if it does not use put to add chr to map with a frequency of 1
+	*/
 	private void createMap()
-	//method that initializes to a map
-	//if chr exists in map, add 1 to frequency
-	//if it does not use put to add chr to map with a frequency of 1
 	{
 		for (char c : sentence.toCharArray())
 		{
@@ -59,29 +70,40 @@ public class HuffmanTree
 		}
 	}
 	
+	/*
+	Takes everything from the map and put it into a priority queue
+	*/
 	private void makeQueue()
-	//take everything from the map and put it into a priority queue
 	{
+		System.out.println(m);
 		for ( char c : m.keySet())
 		{
+			System.out.println(c);
 			q.add(new HuffmanNode("" + c, m.get(c)));
 		}
 	}
-		
+	
+	/*
+	Takes the priority queue and change everything in it into linked huffman nodes
+	*/
 	private void makeTree()
-	//take the priority queue and change everything in it into linked huffman nodes
 	{
 		while (q.size() > 1)
 		{
 			HuffmanNode hn = new HuffmanNode(q.poll(),q.poll());
 			q.add(hn);
+			System.out.println(hn);
 		}
 		root = q.poll();
 	}
 	
+	/*
+	Changes sentence to ones and zeros using root
+	precondition: letters are all in the tree
+	
+	@param	s	new sentence
+	*/
 	public String encode(String s)
-	//changes it to ones and zeros using root
-	//precondition: letters are all in the tree
 	{
 		String output = "";
 		for (char c : s.toCharArray())
@@ -105,6 +127,12 @@ public class HuffmanTree
 		return output;
 	}
 	
+	/*
+	Checks to see if character is in left branch.
+	
+	@param	n	checks left of n
+	@param	c	character
+	*/
 	private boolean inLeft(HuffmanNode n, char c)
 	{
 		n = n.left();
@@ -116,9 +144,14 @@ public class HuffmanTree
 		return false;
 	}
 	
+	/*
+	Decodes the string.
+	Takes in ones and zeroes and changes to characters.
+	
+	@param	s	1's and 0's
+	*/
 	//0's and 1's
 	public String decode(String s)
-	//changes ones and zeros to characters
 	{
 		String output = "";
 		HuffmanNode hn = root;
@@ -142,8 +175,11 @@ public class HuffmanTree
 		return output;
 	}
 	
+	/*
+	toString method.
+	Prints the tree
+	*/
 	public String toString()
-	//print the tree
 	{
 		return root.toString();
 	}
